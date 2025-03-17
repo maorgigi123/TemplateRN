@@ -1,0 +1,10 @@
+[
+    {
+    "data":  {
+      "message" : "User registered successfully"
+    },
+    "isError": false,
+    "messageDesc": "User registered successfully",
+    "messageCode": 0
+  }
+]

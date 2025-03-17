@@ -1,0 +1,10 @@
+export { default as SplashScreen } from "./SplashScreen/SplashScreen";
+export {default as PredefinedMenuScreen} from './PredefinedMenuScreen/PredefinedMenuScreen'
+export {default as LoginScreen} from './LoginScreen'
+export {default as RegisterScreen} from './RegisterScreen'
+export {default as TestScreen} from './TestScreen'
+export {default as ErrorScreen} from './ErrorScreen'
+export {default as MessagesScreen} from './MessagesScreen'
+export {default as RentalScreen} from './RentalScreen'
+export {default as ProfileScreen} from './ProfileScreen'
+export {default as SearchScreen} from './SearchScreen'

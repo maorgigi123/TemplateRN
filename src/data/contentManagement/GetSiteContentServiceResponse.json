@@ -1,0 +1,64 @@
+[
+  {
+    "isError": false,
+    "messageCode": 0,
+    "messageDesc": "",
+    "data": {
+         "content": {
+          "layout": {
+            "header": {
+              "goodMorning": "בוקר טוב",
+              "goodNoon": "צהריים טובים",
+              "goodAfternoon": "אחרה''צ טובים",
+              "goodEvening": "ערב טוב",
+              "goodNight": "לילה טוב",
+              "hello": "כיף שחזרת אלינו:)",
+              "welcome": "ברוכים הבאים!",
+              "theme" : "צבע תבנית"
+            }
+          },
+          "HomePage" : {
+            "title" : "כאן נרשמים לאפליקציה פאקר"
+          } ,
+          "errorPage" : {
+            "title" : "אופס יש שגיאה",
+            "subTitle" : "כנראה נוצרה שגיאה בבקשה תנסה שוב",
+            "toMainPageButton" : "תנסה שוב"
+          } ,
+          "login": {
+            "title": "התחברות",
+            "subtitle": "אנא הזן את פרטי ההתחברות שלך",
+            "emailPlaceholder": "כתובת אימייל",
+            "passwordPlaceholder": "סיסמה",
+            "loginButton": "התחבר",
+            "forgotPassword": "שכחת סיסמה?",
+            "signUpLink": "אין לך חשבון? הירשם כאן"
+          },
+          "register": {
+            "title": "הרשמה",
+            "subtitle": "צור חשבון חדש כדי להמשיך",
+            "emailPlaceholder": "הזן את כתובת האימייל שלך",
+            "usernamePlaceholder" : "הזן שם משתמש",
+            "passwordPlaceholder": "הזן סיסמה",
+            "confirmPasswordPlaceholder": "אשר את הסיסמה",
+            "registerButton": "הרשמה",
+            "loginLink": "כבר יש לך חשבון? התחבר כאן"
+          },
+          "bottomTabs" : {
+           "Explore": "מפה",
+           "RENTAL": "השכרות",
+           "Messages": "הודעות",
+           "Profile": "פרופיל",
+           "SEARCH" : "חיפוש"
+          },
+          "profile": {
+            "title": "Profile",
+            "username": "John Doe",
+            "bio": "Traveler | Food Lover | Photographer",
+            "editProfile": "Edit Profile",
+            "logout": "Logout"
+          }
+         }
+    }
+  }
+]
