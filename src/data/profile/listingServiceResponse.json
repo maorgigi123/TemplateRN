@@ -1,0 +1,225 @@
+[
+  {
+    "isError": false,
+    "messageCode": 0,
+    "messageDesc": "",
+    "data": {
+      "listings": [
+        {
+          "id": "1",
+          "title": "Modern Apartment in Tel Aviv",
+          "description": "A beautiful apartment in the heart of Tel Aviv, close to the beach and nightlife.",
+          "category": "Real Estate",
+          "price": 4500,
+          "images": [
+            "https://img-v2.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fm.sothebysrealty.com%2F1103i215%2Fvsdb32dg6505mt6ch6mv3vfxd1i215&option=N&permitphotoenlargement=false",
+            "https://static-cdn.toi-media.com/www/uploads/2020/02/1-1.jpg"
+          ],
+          "owner": "user123",
+          "available": true,
+          "location": "Tel Aviv, Israel",
+          "createdAt": "2024-07-15T12:00:00Z"
+        },
+        {
+          "id": "2",
+          "title": "iPhone 13 Pro Max - 256GB",
+          "description": "Brand new iPhone 13 Pro Max, sealed in box with full warranty.",
+          "category": "Electronics",
+          "price": 3999,
+          "images": [
+            "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-geo-240909_inline.jpg.large.jpg",
+            "https://m.media-amazon.com/images/I/619f09kK7tL._AC_UF894,1000_QL80_.jpg",
+            "https://d3m9l0v76dty0.cloudfront.net/system/photos/10732669/original/857c35abc94893da206660d67af28f1d.jpg"
+          ],
+          "owner": "user456",
+          "available": true,
+          "location": "Jerusalem, Israel",
+          "createdAt": "2024-07-14T15:30:00Z"
+        },
+        {
+          "id": "3",
+          "title": "Mountain Bike - Shimano Gears",
+          "description": "High-quality mountain bike with 21 Shimano gears, perfect for outdoor adventures.",
+          "category": "Sports & Outdoors",
+          "price": 1200,
+          "images": [
+            "https://mtb.shimano.com/easset_upload_file85648_537976_e.jpg"
+          ],
+          "owner": "user789",
+          "available": false,
+          "location": "Haifa, Israel",
+          "createdAt": "2024-07-10T09:45:00Z"
+        },
+        {
+          "id": "4",
+          "title": "Coffee Maker",
+          "description": "Espresso coffee maker with a built-in grinder.",
+          "category": "Electronics",
+          "price": 250,
+          "images": [
+            "https://example.com/images/coffeemaker.jpg"
+          ],
+          "owner": "user123",
+          "available": true,
+          "location": "Tel Aviv, Israel",
+          "createdAt": "2024-07-05T12:00:00Z"
+        },
+        {
+          "id": "5",
+          "title": "Leather Jacket",
+          "description": "Genuine leather jacket, size L.",
+          "category": "Fashion",
+          "price": 500,
+          "images": [
+            "https://example.com/images/leatherjacket.jpg"
+          ],
+          "owner": "user456",
+          "available": true,
+          "location": "Jerusalem, Israel",
+          "createdAt": "2024-07-04T10:30:00Z"
+        },
+        {
+          "id": "6",
+          "title": "Gaming Laptop - ASUS",
+          "description": "Powerful gaming laptop with RTX 3070 graphics.",
+          "category": "Electronics",
+          "price": 1800,
+          "images": [
+            "https://example.com/images/laptop.jpg"
+          ],
+          "owner": "user789",
+          "available": true,
+          "location": "Haifa, Israel",
+          "createdAt": "2024-06-29T14:00:00Z"
+        },
+        {
+          "id": "7",
+          "title": "Vintage Watch",
+          "description": "Rare vintage wristwatch from the 1960s.",
+          "category": "Fashion",
+          "price": 1500,
+          "images": [
+            "https://example.com/images/watch.jpg"
+          ],
+          "owner": "user123",
+          "available": true,
+          "location": "Tel Aviv, Israel",
+          "createdAt": "2024-06-27T08:00:00Z"
+        },
+        {
+          "id": "8",
+          "title": "Electric Scooter",
+          "description": "Compact electric scooter, max speed 25 km/h.",
+          "category": "Sports & Outdoors",
+          "price": 800,
+          "images": [
+            "https://example.com/images/scooter.jpg"
+          ],
+          "owner": "user456",
+          "available": true,
+          "location": "Jerusalem, Israel",
+          "createdAt": "2024-06-25T13:15:00Z"
+        },
+        {
+          "id": "9",
+          "title": "Smartwatch - Fitbit",
+          "description": "Fitbit smartwatch with heart rate and sleep tracking.",
+          "category": "Electronics",
+          "price": 150,
+          "images": [
+            "https://example.com/images/fitbit.jpg"
+          ],
+          "owner": "user789",
+          "available": true,
+          "location": "Haifa, Israel",
+          "createdAt": "2024-06-24T16:45:00Z"
+        },
+        {
+          "id": "10",
+          "title": "Camera - Canon EOS 5D Mark IV",
+          "description": "High-end DSLR camera with 24-70mm lens.",
+          "category": "Electronics",
+          "price": 2500,
+          "images": [
+            "https://example.com/images/camera.jpg"
+          ],
+          "owner": "user123",
+          "available": true,
+          "location": "Tel Aviv, Israel",
+          "createdAt": "2024-06-20T11:30:00Z"
+        },
+        {
+          "id": "11",
+          "title": "Yoga Mat",
+          "description": "Non-slip yoga mat, perfect for all levels.",
+          "category": "Sports & Outdoors",
+          "price": 30,
+          "images": [
+            "https://example.com/images/yogamat.jpg"
+          ],
+          "owner": "user456",
+          "available": true,
+          "location": "Jerusalem, Israel",
+          "createdAt": "2024-06-18T10:30:00Z"
+        },
+        {
+          "id": "12",
+          "title": "Electric Kettle",
+          "description": "Fast boiling electric kettle, 1.7L capacity.",
+          "category": "Electronics",
+          "price": 40,
+          "images": [
+            "https://example.com/images/kettle.jpg"
+          ],
+          "owner": "user789",
+          "available": true,
+          "location": "Haifa, Israel",
+          "createdAt": "2024-06-17T14:00:00Z"
+        },
+        {
+          "id": "13",
+          "title": "Barbecue Grill",
+          "description": "Outdoor barbecue grill with three burners.",
+          "category": "Sports & Outdoors",
+          "price": 400,
+          "images": [
+            "https://example.com/images/grill.jpg"
+          ],
+          "owner": "user123",
+          "available": true,
+          "location": "Tel Aviv, Israel",
+          "createdAt": "2024-06-15T09:30:00Z"
+        },
+        {
+          "id": "14",
+          "title": "Desk Chair",
+          "description": "Ergonomic office desk chair, adjustable height.",
+          "category": "Furniture",
+          "price": 120,
+          "images": [
+            "https://example.com/images/deskchair.jpg"
+          ],
+          "owner": "user456",
+          "available": true,
+          "location": "Jerusalem, Israel",
+          "createdAt": "2024-06-12T13:30:00Z"
+        },
+        {
+          "id": "15",
+          "title": "Electric Bike",
+          "description": "Eco-friendly electric bike with 30km range.",
+          "category": "Sports & Outdoors",
+          "price": 1200,
+          "images": [
+            "https://example.com/images/electricbike.jpg"
+          ],
+          "owner": "user789",
+          "available": true,
+          "location": "Haifa, Israel",
+          "createdAt": "2024-06-10T08:00:00Z"
+        }
+      ],
+      "total": 15
+    }
+  }
+]

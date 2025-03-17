@@ -1,30 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, View, TextInput, TouchableOpacity } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { SafeAreaView, Text, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../../hooks/useTheme";
 import fonts from "../../styles/fonts";
-import { CustomButton, Loader } from "../../components"; // Assuming your CustomButton is styled nicely
-import api from '../../api/helpers/instance'
-import { BASE_URL } from "@env";
-const SearchScreen = () => {
-  const themeColor = useTheme()
-const {t} = useTranslation()
-const [user, setUser] = useState<string>("");
+import { useQuery } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
+import { Listing_pages_MUTATION_KEY } from "../../constants/keys";
+import { getListingsService } from "../../api/services/authServices";
+import { useQueryClient } from "@tanstack/react-query";
+import { IResponse } from "api/models/ResponseModels";
+import { SCREEN_WIDTH } from "../../utils/details";
+import {ListingCard} from "../../screens";
+import { IListing } from "../../types/response";
 
-const testProtectedRoute = async () => {
-  try {
-    // Make a GET request to the protected route
-    const response = await api.get(BASE_URL); // Assuming the route is at '/'
-    // Check the response
-    console.log('res ',response.data);
-    setUser(response.data.user.email)
-  } catch (error) {
-    console.error("Error accessing protected route:", error);
-  }
-};
-useEffect(()=>{
-  // testProtectedRoute()
-},[])
+const SearchScreen: React.FC = () => {
+  const queryClient = useQueryClient();
+  const themeColor = useTheme();
+  const { t } = useTranslation();
+  const [page, setPage] = useState<number>(1);
+  const [listings, setListings] = useState<IListing[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+
+  const ProtectedRoute = useQuery({
+    queryKey: [Listing_pages_MUTATION_KEY, page],
+    queryFn: () => getListingsService(page, 10),
+  });
+
+  useEffect(() => {
+    if (ProtectedRoute.isSuccess) {
+      const newListings = ProtectedRoute.data?.data?.listings as IListing[];
+      if(newListings && newListings.length > 0)
+        setListings((prev) => [...prev, ...newListings]);
+      if (newListings.length < 10) setHasMore(false);
+    }
+  }, [ProtectedRoute.isSuccess, ProtectedRoute.data]);
+
+  useEffect(() => {
+    if (ProtectedRoute.isError) {
+      if (isAxiosError<IResponse<any>>(ProtectedRoute.error)) {
+        console.error("Error fetching listings:", ProtectedRoute.error);
+      }
+    }
+  }, [ProtectedRoute.isError, ProtectedRoute.error]);
+
+  const loadMoreListings = useCallback(() => {
+    if (ProtectedRoute.isFetching || !hasMore) return;
+    setPage((prev) => prev + 1);
+  }, [ProtectedRoute.isFetching, hasMore]);
+
+  const handleRefetch = async () => {
+    queryClient.removeQueries({ queryKey: [Listing_pages_MUTATION_KEY] });
+    setListings([]);
+    setHasMore(true);
+    setPage(1);
+    ProtectedRoute.refetch();
+  };
 
   return (
     <SafeAreaView
@@ -32,34 +62,40 @@ useEffect(()=>{
         flex: 1,
         backgroundColor: themeColor.BACKGROUND,
         justifyContent: "center",
-        alignItems: "center", // Center the content horizontally
+        alignItems: "center",
         paddingHorizontal: 20,
         paddingVertical: 30,
       }}
     >
-      <Text
-        style={{
-          fontFamily: fonts.type.demibold,
-          fontSize: 40,
-          color: themeColor.TEXT,
-          textAlign: "center",
-          marginBottom: 10,
-        }}
-      >
-        search
-      </Text>
-      <Text
-        style={{
-          fontFamily: fonts.type.demibold,
-          fontSize: 40,
-          color: themeColor.TEXT,
-          textAlign: "center",
-          marginBottom: 10,
-        }}
+
+      <FlatList
+        data={listings}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ListingCard item={item} themeColor={themeColor} fonts={fonts} />
+        )}
+        onEndReached={loadMoreListings}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={() =>
+          ProtectedRoute.isFetching ? (
+            <ActivityIndicator size="large" color={themeColor.PRIMARY_BUTTON} />
+          ) : null
+        }
+      />
+
+      {ProtectedRoute.isSuccess && (
+        <Text
+          style={{
+            fontFamily: fonts.type.demibold,
+            fontSize: 18,
+            color: themeColor.TEXT,
+            textAlign: "center",
+            marginBottom: 10,
+          }}
         >
-      this is the user : {user}
-      </Text>
-     
+          {t("Successfully fetched listings")}
+        </Text>
+      )}
     </SafeAreaView>
   );
 };

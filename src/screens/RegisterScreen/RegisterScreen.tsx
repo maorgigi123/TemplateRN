@@ -4,37 +4,39 @@ import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, ActivityIndicator } from "react-native";
-import { RegisterService } from "../../api/services/authServices"; // Your registration service
-import { AuthParamList, HOME, ERROR, LOGIN } from "../../types/navigation"; // Navigation screens
+import { RegisterService } from "../../api/services/authServices";
+import { AuthParamList, HOME, ERROR, LOGIN } from "../../types/navigation";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../../hooks/useTheme";
-import { styles } from "./RegisterScreenStyle"; // Import your styles
-import { REGISTER_SERVICE_MUTATION_KEY } from "../../constants/keys"; // Your mutation key
-import { emailRegex, usernameRegex, passwordRegex } from "../../utils/regex"; // Import regex
+import { styles } from "./RegisterScreenStyle";
+import { REGISTER_SERVICE_MUTATION_KEY } from "../../constants/keys";
+import { emailRegex, usernameRegex, passwordRegex } from "../../utils/regex";
+import { IResponse } from "api/models/ResponseModels";
 
 const RegisterScreen: React.FC = () => {
   const { t } = useTranslation();
   const colorTheme = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<AuthParamList>>();
 
-  const [username, setUsername] = useState<string>(""); // Username state
-  const [email, setEmail] = useState<string>(""); // Email state
-  const [password, setPassword] = useState<string>(""); // Password state
-  const [confirmPassword, setConfirmPassword] = useState<string>(""); // Confirm password state
-  const [errorMessage, setErrorMessage] = useState<string>(""); // Error message state
-  const [isNavigated, setIsNavigated] = useState<boolean>(false); // For navigation after registration
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isNavigated, setIsNavigated] = useState<boolean>(false);
 
   const registerMutation = useMutation({
     mutationKey: [REGISTER_SERVICE_MUTATION_KEY],
-    mutationFn: () => RegisterService(username, email, password), // Call RegisterService with username, email, password
-    onSuccess: (data) => {
-      console.log("Registration successful:", data?.message);
+    mutationFn: () => RegisterService(username, email, password, phone, location),
+    onSuccess: (response) => {
       setIsNavigated(true);
     },
     onError: (error) => {
       if (isAxiosError(error)) {
-        console.error("Registration error:", error.response?.data);
-        // Navigate to an error screen if needed
+        console.log(error.response?.data)
+        setErrorMessage(error.response?.data?.messageDesc)
       }
     },
   });
@@ -56,11 +58,18 @@ const RegisterScreen: React.FC = () => {
       setErrorMessage("Passwords must match.");
       return false;
     }
-    setErrorMessage(""); // Clear error message if validation passes
+    if (!phone) {
+      setErrorMessage("Phone number is required.");
+      return false;
+    }
+    if (!location) {
+      setErrorMessage("Location is required.");
+      return false;
+    }
+    setErrorMessage("");
     return true;
   };
 
-  // Navigate after successful registration
   useEffect(() => {
     if (isNavigated) {
       navigation.reset({
@@ -72,67 +81,22 @@ const RegisterScreen: React.FC = () => {
 
   return (
     <View style={styles.root}>
-      {/* Title */}
       <Text style={styles.title}>{t('register.title')}</Text>
-
-      {/* Subtitle */}
       <Text style={styles.subtitle}>{t('register.subtitle')}</Text>
-
-      {/* Username Input */}
-      <TextInput
-        style={styles.input}
-        placeholder={t('register.usernamePlaceholder')}
-        value={username}
-        onChangeText={setUsername}
-      />
-
-      {/* Email Input */}
-      <TextInput
-        style={styles.input}
-        placeholder={t('register.emailPlaceholder')}
-        value={email}
-        onChangeText={setEmail}
-      />
-
-      {/* Password Input */}
-      <TextInput
-        style={styles.input}
-        placeholder={t('register.passwordPlaceholder')}
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      {/* Confirm Password Input */}
-      <TextInput
-        style={styles.input}
-        placeholder={t('register.confirmPasswordPlaceholder')}
-        secureTextEntry
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-      />
-
-      {/* Error Message */}
+      
+      <TextInput style={styles.input} placeholder={t('register.usernamePlaceholder')} value={username} onChangeText={setUsername}   autoCapitalize="none" />
+      <TextInput style={styles.input} placeholder={t('register.emailPlaceholder')} value={email} onChangeText={setEmail} autoCapitalize="none" />
+      <TextInput style={styles.input} placeholder={t('register.passwordPlaceholder')} secureTextEntry value={password} onChangeText={setPassword} autoCapitalize="none" />
+      <TextInput style={styles.input} placeholder={t('register.confirmPasswordPlaceholder')} secureTextEntry value={confirmPassword} onChangeText={setConfirmPassword} autoCapitalize="none" />
+      <TextInput style={styles.input} placeholder={t('register.phonePlaceholder')} value={phone} onChangeText={setPhone} autoCapitalize="none" />
+      <TextInput style={styles.input} placeholder={t('register.locationPlaceholder')} value={location} onChangeText={setLocation} autoCapitalize="none" />
+      
       {errorMessage && <Text style={styles.errorText}>* {errorMessage}</Text>}
-
-      {/* Register Button */}
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: colorTheme.PRIMARY_BUTTON }]}
-        onPress={() => {
-          if (validateForm()) {
-            registerMutation.mutate(); // Call register function if form is valid
-          }
-        }}
-        disabled={registerMutation.isPending} // Disable if loading
-      >
-        {registerMutation.isPending ? (
-          <ActivityIndicator color="white" />
-        ) : (
-          <Text style={styles.buttonText}>{t('register.registerButton')}</Text>
-        )}
+      
+      <TouchableOpacity style={[styles.button, { backgroundColor: colorTheme.PRIMARY_BUTTON }]} onPress={() => { if (validateForm()) { registerMutation.mutate(); } }} disabled={registerMutation.isPending}>
+        {registerMutation.isPending ? <ActivityIndicator color="white" /> : <Text style={styles.buttonText}>{t('register.registerButton')}</Text>}
       </TouchableOpacity>
-
-      {/* Navigate to Login */}
+      
       <TouchableOpacity onPress={() => navigation.navigate(LOGIN)}>
         <Text style={styles.loginLink}>{t('register.loginLink')}</Text>
       </TouchableOpacity>

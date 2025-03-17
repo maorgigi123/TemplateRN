@@ -34,7 +34,7 @@ const SplashScreen = () => {
   // עדכון מצב כאשר הקריאה ל-API הצליחה
   useEffect(() => {
     if (contentQuery.isSuccess) {
-      addTexts(contentQuery.data.content); // הוספת טקסטים מהתוכן
+      addTexts(contentQuery.data?.data?.content); // הוספת טקסטים מהתוכן
       setContentLoaded(true); // עדכון שהטקסטים נטענו
     }
   }, [contentQuery.isSuccess]);

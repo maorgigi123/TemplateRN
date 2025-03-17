@@ -12,11 +12,13 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "../../hooks/useTheme.ts";
 import { useDispatch } from "react-redux";
 import { SetLogin } from "../../../store/user/user.action.ts";
+import { IResponse } from "../../api/models/ResponseModels.ts";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState(""); // User email state
   const [password, setPassword] = useState(""); // User password state
   const [isNavigated, setIsNavigated] = useState(false); // Track manual navigation
+  const [errorText, setErrorText] = useState<string>("")
   const navigation = useNavigation<NativeStackNavigationProp<AuthParamList>>(); // Navigation
   const colorTheme = useTheme();
   const { t } = useTranslation();
@@ -31,8 +33,9 @@ const LoginScreen = () => {
       setIsNavigated(true); // Mark navigation
     },
     onError: (error) => {
-      if (isAxiosError(error)) {
-        console.error("Login error:", error);
+      if (isAxiosError<IResponse<any>>(error)) {
+        console.log(error.response?.data?.messageDesc)
+        setErrorText(error.response?.data?.messageDesc || "")
         // navigation.navigate(ERROR); // Navigate to error screen if needed
       }
     },
@@ -71,7 +74,11 @@ const LoginScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-
+      {errorText.length > 0 &&
+            <Text style={{color:"red",fontSize:16}}>
+            * {errorText}
+            </Text>
+      }
       {/* Login Button */}
       <TouchableOpacity
         style={[styles.button,{backgroundColor: colorTheme.PRIMARY_BUTTON}]}

@@ -17,7 +17,9 @@ import {
 } from "../../components/index";
 import {
     GetSiteContentServiceResponse,
+    LogOutServiceResponse,
     RegisterServiceResponse,
+    listingServiceResponse,
     loginServiceResponse
 } from "../../data";
 
@@ -45,7 +47,9 @@ import { styles } from "./PredefinedMenuScreenStyle";
 const SERVICES = new Map<string, IResponse<any>[]>([
   ["GetSiteContentService", GetSiteContentServiceResponse],
   ["RegisterService",RegisterServiceResponse],
-  ["LoginService",loginServiceResponse]
+  ["LoginService",loginServiceResponse],
+  ["getListingsService", listingServiceResponse],
+  ["LogOutService",LogOutServiceResponse]
 ]);
 
 export const DEFAULT_PREDEFINED_DATA = Array.from(SERVICES.keys()).map(

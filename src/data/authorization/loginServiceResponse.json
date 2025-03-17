@@ -1,13 +1,6 @@
 [
   {
-  "data": {
-    "token": "jwt_token_here",
-    "user": {
-      "id": "1111",
-      "email": "m@gmail.com",
-      "username" : "maor gigi"
-    }
-  },
+  "data": null,
   "isError": false,
   "messageDesc": "Success",
   "messageCode": 0

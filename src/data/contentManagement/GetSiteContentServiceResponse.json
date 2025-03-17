@@ -33,6 +33,7 @@
             "loginButton": "התחבר",
             "forgotPassword": "שכחת סיסמה?",
             "signUpLink": "אין לך חשבון? הירשם כאן"
+            
           },
           "register": {
             "title": "הרשמה",
@@ -42,7 +43,9 @@
             "passwordPlaceholder": "הזן סיסמה",
             "confirmPasswordPlaceholder": "אשר את הסיסמה",
             "registerButton": "הרשמה",
-            "loginLink": "כבר יש לך חשבון? התחבר כאן"
+            "loginLink": "כבר יש לך חשבון? התחבר כאן",
+            "phonePlaceholder" : "הזן מספר פלאפון",
+             "locationPlaceholder" : "הזן מקום מגורים"
           },
           "bottomTabs" : {
            "Explore": "מפה",

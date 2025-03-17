@@ -23,6 +23,7 @@
     "react": "19.0.0",
     "react-i18next": "^15.4.1",
     "react-native": "0.78.0",
+    "react-native-animated-dots-carousel": "^2.0.1",
     "react-native-device-info": "^14.0.4",
     "react-native-dotenv": "^3.4.11",
     "react-native-error-boundary": "^2.0.0",
