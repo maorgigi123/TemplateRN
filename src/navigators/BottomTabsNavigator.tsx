@@ -4,10 +4,10 @@ import { Platform, TouchableOpacity, View } from "react-native";
 import HapticFeedback from "react-native-haptic-feedback";
 import Ionicons from 'react-native-vector-icons/Ionicons'; // Import from react-native-vector-icons
 
-import { MessagesScreen, ProfileScreen, RentalScreen, SearchScreen } from "../screens";
-import { TABS_YELLOW } from "../styles/universalColors";
+import { MessagesScreen, ProfileScreen, RentalScreen } from "../screens";
 import { PROFILE, MESSAGES, SEARCH, RENTAL } from "../types/navigation";
 import ListingStack from "../screens/ListingStack";
+import { useTheme } from "../hooks/useTheme";
 
 const handleTabPress = () => {
   HapticFeedback.trigger("selection", {
@@ -20,6 +20,7 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabsNavigator = () => {
   const { t } = useTranslation();
+  const colorTheme = useTheme();
   return (
  <Tab.Navigator
       initialRouteName={SEARCH}
@@ -49,7 +50,7 @@ const BottomTabsNavigator = () => {
             <Ionicons
               name={iconName}
               size={28}
-              color={focused ? TABS_YELLOW : "gray"}
+              color={focused ? colorTheme.PRIMARY_BUTTON_HOVER : colorTheme.LINE_BREAK}
             />
           );
         },
@@ -72,10 +73,11 @@ const BottomTabsNavigator = () => {
         
         
         
-        tabBarLabelStyle: { color: "black", fontSize: 12 },
+        tabBarLabelStyle: { color: colorTheme.TEXT, fontSize: 12 },
         tabBarStyle: {
           paddingBottom: Platform.OS === "android" ? 20 : 28,
           height: 80,
+          backgroundColor:colorTheme.BACKGROUND
         },
       })}
     >

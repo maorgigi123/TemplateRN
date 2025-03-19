@@ -1,20 +1,9 @@
-export const TABS_YELLOW = "#f9e689";
-export const APP_GREY = "#cccccc";
-export const APP_SECOND_GREY = "rgba(11, 13, 17, 0.6)";
-export const CARD_GREY = "rgba(240, 233, 227, 0.4)";
-export const TITLE_YELLOW = "rgba(249, 231, 137, 1)";
-export const CARD_BORDER = "rgba(22, 45, 73, 0.3)";
-export const TAG_BLACK = "rgba(11, 13, 17, 0.8)";
-export const APP_DARK_BLUE = "#cadeeb";
-export const BUTTON_BLACK = "rgba(11, 13, 17, 1)";
-export const BORDER_GREY = "rgba(204, 204, 204, 1)";
+
+
 export const RED = "rgba(224, 71, 41, 1)";
 export const GREY_TEXT = "rgba(116, 118, 122, 1)";
-export const BACKGROUND_BLUE = "rgba(240, 249, 255, 1)";
-export const GREY_VIP = "rgba(240, 233, 227, 1)";
-export const LIGHT_BLUE = "rgba(221, 236, 246, 1)";
-export const PINK = "rgba(242, 166, 171, 1)";
-export const BLUE_CARD = "rgba(221, 236, 246, 0.8)";
-export const DISABLED_GREY = "rgba(231, 231, 232, 1)";
 export const GREEN = "rgba(57, 160, 71, 1)";
+export const CARD_BORDER = "rgba(22, 45, 73, 0.3)";
+export const BUTTON_BLACK = "rgba(11, 13, 17, 1)";
+export const DISABLED_GREY = "rgba(231, 231, 232, 1)";
 export const DISABLED_GREY_TEXT = "rgba(169, 171, 171, 1)";

@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import CustomText, { CustomTextProps } from "../CustomText/CustomText";
 import { styles } from "./CustomButtonStyle";
+import { useTheme } from "../../hooks/useTheme";
 
 export type CustomButtonProps = {
   text?: string;
@@ -27,6 +28,7 @@ const CustomButton = ({
   disabled = false, 
   ...props
 }: CustomButtonProps) => {
+  const colorTheme = useTheme();
   return (
     <TouchableOpacity
       accessibilityRole="button"
@@ -34,7 +36,7 @@ const CustomButton = ({
       {...accProps}
       disabled={disabled || isLoading} 
       style={[
-        styles.btn,
+        styles.btn,{ backgroundColor: colorTheme.BLACK},
         inverted && { backgroundColor: "white" },
         fullWidth && { width: "100%" },
         props.style,

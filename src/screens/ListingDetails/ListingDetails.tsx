@@ -6,6 +6,8 @@ import Animated, { SlideInDown, interpolate, useAnimatedRef, useAnimatedStyle, u
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { currencyCalc } from "../../utils/currencyCalc";
+import { useTheme } from "../../hooks/useTheme";
 
 const { width } = Dimensions.get("window");
 const IMG_HEIGHT = 300;
@@ -17,27 +19,27 @@ const ListingDetails: React.FC = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<SearchStackParamList>>();
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
-
+  const colorTheme = useTheme();
   useEffect(() => {
     navigation.setOptions({
       headerTitle: "",
       headerTransparent: true,
       headerBackground: () => (
-        <Animated.View style={[headerAnimatedStyle, styles.header]} />
+        <Animated.View style={[headerAnimatedStyle, styles.header,{backgroundColor:colorTheme.BACKGROUND,borderColor: colorTheme.LINE_BREAK}]} />
       ),
       headerRight: () => (
         <View style={styles.bar}>
-          <TouchableOpacity style={styles.roundButton} onPress={() => {}}>
-            <Ionicons name="share-outline" size={22} color="#000" />
+          <TouchableOpacity style={[styles.roundButton,{ backgroundColor: colorTheme.BACKGROUND}]} onPress={() => {}}>
+            <Ionicons name="share-outline" size={22} color={colorTheme.TEXT} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.roundButton}>
-            <Ionicons name="heart-outline" size={22} color="#000" />
+          <TouchableOpacity style={[styles.roundButton,{ backgroundColor: colorTheme.BACKGROUND}]}>
+            <Ionicons name="heart-outline" size={22} color={colorTheme.TEXT} />
           </TouchableOpacity>
         </View>
       ),
       headerLeft: () => (
-        <TouchableOpacity style={styles.roundButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back" size={24} color="#000" />
+        <TouchableOpacity style={[styles.roundButton,{ backgroundColor: colorTheme.BACKGROUND}]} onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back" size={24} color={colorTheme.TEXT} />
         </TouchableOpacity>
       ),
     });
@@ -65,7 +67,7 @@ const ListingDetails: React.FC = () => {
   }), []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{backgroundColor:colorTheme.BACKGROUND}]}>
       <Animated.ScrollView
         contentContainerStyle={{ paddingBottom: 100 }}
         ref={scrollRef}
@@ -84,39 +86,43 @@ const ListingDetails: React.FC = () => {
             <View style={styles.skeleton} />
           </SkeletonPlaceholder>
         )}
-        <View style={styles.infoContainer}>
-          <Text style={styles.name}>{item.title}</Text>
-          <Text style={styles.rooms}>{item.description}</Text>
+
+
+        <View style={[styles.infoContainer,{backgroundColor: colorTheme.BACKGROUND}]}>
+          <Text style={[styles.name,{color:colorTheme.TEXT}]}>{item.title}</Text>
+          <Text style={[styles.rooms,{color:colorTheme.TEXT}]}>{item.description}</Text>
+
           <View style={styles.ratingContainer}>
-            <Ionicons name="star" size={16} />
-            <Text style={styles.ratings}>5 · 10 reviews</Text>
+            <Ionicons name="star" size={16}  color={colorTheme.TEXT}/>
+            <Text style={[styles.ratings,{color:colorTheme.TEXT}]}>5 · 10 reviews</Text>
           </View>
-          <View style={styles.divider} />
-          <View style={styles.hostView}>
-            <Image source={{ uri: item.owner.profile_image }} style={styles.host} />
-            <View>
-              <Text style={styles.hostName}>Hosted by {item.owner.name}</Text>
-              <Text style={styles.hostSince}>Host since {item.createdAt}</Text>
+
+          <View style={[styles.divider,{backgroundColor: colorTheme.LINE_BREAK}]} />
+            <View style={styles.hostView}>
+              <Image source={{ uri: item.owner.profile_image }} style={[styles.host,{backgroundColor: colorTheme.LINE_BREAK}]} />
+              <View>
+                <Text style={[styles.hostName,{color:colorTheme.TEXT}]}>Hosted by {item.owner.name}</Text>
+                <Text style={[styles.hostSince,{color: colorTheme.TEXT}]}>Host since {new Date(item.createdAt).toLocaleDateString()}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.divider} />
-          {/* Render description several times */}
-          {[...Array(10)].map((_, i) => (
-            <Text key={i} style={styles.description}>
+            <View style={[styles.divider,{backgroundColor: colorTheme.LINE_BREAK}]} />
+            {/* Render description several times */}
+          {[...Array(15)].map((_, i) => (
+            <Text key={i} style={[styles.description,{color:colorTheme.TEXT}]}>
               {item.description}
             </Text>
           ))}
         </View>
       </Animated.ScrollView>
       {isImageLoaded && (
-        <Animated.View style={styles.footer} entering={SlideInDown.delay(200)}>
+        <Animated.View style={[styles.footer,{borderTopColor: colorTheme.LINE_BREAK,backgroundColor:colorTheme.BACKGROUND}]} entering={SlideInDown.delay(200)}>
           <View style={styles.footerContent}>
             <TouchableOpacity style={styles.footerText}>
-              <Text style={styles.footerPrice}>€{item.price}</Text>
-              <Text>night</Text>
+              <Text style={[styles.footerPrice,{color:colorTheme.TEXT}]}>{currencyCalc(item.currency)} {item.price}</Text>
+              <Text style={{color:colorTheme.TEXT}}>pre hour</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.btn, { paddingHorizontal: 20 }]}>
-              <Text style={styles.btnText}>Reserve</Text>
+            <TouchableOpacity style={[styles.btn, { paddingHorizontal: 20 ,backgroundColor :colorTheme.PRIMARY_BUTTON}]}>
+              <Text style={[styles.btnText,{color:colorTheme.WHITE}]}>Order</Text>
             </TouchableOpacity>
           </View>
         </Animated.View>
@@ -126,40 +132,38 @@ const ListingDetails: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "white" },
+  container: { flex: 1 },
   image: { width },
   skeleton: { width, height: IMG_HEIGHT },
-  infoContainer: { padding: 24, backgroundColor: "#fff" },
+  infoContainer: { padding: 24 },
   name: { fontSize: 26, fontWeight: "bold", marginBottom: 10 },
-  rooms: { fontSize: 16, color: "grey", marginVertical: 4 },
+  rooms: { fontSize: 16, marginVertical: 4 },
   ratingContainer: { flexDirection: "row", alignItems: "center", gap: 4 },
   ratings: { fontSize: 16 },
-  divider: { height: StyleSheet.hairlineWidth, backgroundColor: "grey", marginVertical: 16 },
+  divider: { height: StyleSheet.hairlineWidth, marginVertical: 16 },
   hostView: { flexDirection: "row", alignItems: "center", gap: 12 },
-  host: { width: 50, height: 50, borderRadius: 50, backgroundColor: "grey" },
+  host: { width: 50, height: 50, borderRadius: 50 },
   hostName: { fontWeight: "500", fontSize: 16 },
-  hostSince: { fontSize: 14, color: "grey" },
-  roundButton: { width: 40, height: 40, borderRadius: 50, backgroundColor: "white", alignItems: "center", justifyContent: "center" },
+  hostSince: { fontSize: 14 },
+  roundButton: { width: 40, height: 40, borderRadius: 50, alignItems: "center", justifyContent: "center" },
   bar: { flexDirection: "row", alignItems: "center", gap: 10 },
-  header: { backgroundColor: "#fff", height: 100, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: "grey" },
+  header: {height: 100, borderBottomWidth: StyleSheet.hairlineWidth },
   description: { fontSize: 16, marginTop: 10 },
   footer: {
     position: "absolute",
-    height: 100,
+    height: 80,
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#fff",
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderTopColor: "grey",
     borderTopWidth: StyleSheet.hairlineWidth,
   },
   footerContent: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   footerText: { flexDirection: "row", alignItems: "center", gap: 4 },
   footerPrice: { fontSize: 18 },
-  btn: { backgroundColor: "red", height: 50, borderRadius: 8, justifyContent: "center", alignItems: "center" },
-  btnText: { color: "#fff", fontSize: 16 },
+  btn: { height: 50, borderRadius: 8, justifyContent: "center", alignItems: "center" },
+  btnText: {fontSize: 16 },
 });
 
 export default ListingDetails;

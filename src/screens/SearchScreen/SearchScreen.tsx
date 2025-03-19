@@ -9,7 +9,6 @@ import { Listing_pages_MUTATION_KEY } from "../../constants/keys";
 import { getListingsService } from "../../api/services/authServices";
 import { useQueryClient } from "@tanstack/react-query";
 import { IResponse } from "api/models/ResponseModels";
-import { SCREEN_WIDTH } from "../../utils/details";
 import { ExploreScreen, ListingCard, ListingCardSkeleton } from "../../screens"; // Assuming ListingCardSkeleton is the skeleton loader
 import { IListing } from "../../types/response";
 import { useUserLocation } from "../../hooks/useUserLocation";
@@ -99,11 +98,12 @@ const SearchScreen: React.FC = () => {
   }
 
   return (
-    <View style={{flex:1,backgroundColor: themeColor.BACKGROUND,marginBottom:TabsHeight}}>
+    <View style={{flex:1,backgroundColor: themeColor.BACKGROUND}}>
  <SafeAreaView
     style={{
       paddingHorizontal: 20,
       paddingVertical: 30,
+      marginBottom:TabsHeight
     }}
   >
       <View style={{ height: 130 }}>  

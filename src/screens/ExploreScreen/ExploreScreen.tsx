@@ -13,16 +13,6 @@ import { useTheme } from "../../hooks/useTheme";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-// const categories = [
-//   { name: 'Trending', icon: 'local-fire-department' },
-//   { name: 'Tiny homes', icon: 'home' },
-//   { name: 'Cabins', icon: 'house-siding' },
-//   { name: 'Trending', icon: 'local-fire-department' },
-//   { name: 'Play', icon: 'videogame-asset' },
-//   { name: 'City', icon: 'apartment' },
-//   { name: 'Beachfront', icon: 'beach-access' },
-//   { name: 'Countryside', icon: 'nature-people' },
-// ];
 const categories = [
   { name: 'Trending', icon: 'local-fire-department' },
   { name: 'Photography Equipment', icon: 'camera' },
@@ -66,16 +56,16 @@ const ExploreScreen = ({ onCategoryChanged }: Props) => {
       <View style={styles.container}>
         <View style={styles.actionRow}>
           <TouchableOpacity onPress={() => {}}>
-            <View style={[styles.searchBtn,{ borderColor: colorTheme.TEXT}]}>
+            <View style={[styles.searchBtn,{ borderColor: colorTheme.LINE_BREAK}]}>
               {/* <Ionicons name="search" size={24} /> */}
               <View>
-                <Text style={{ fontFamily: 'mon-sb' }}>Where to?</Text>
-                <Text style={{ color: 'gray', fontFamily: 'mon' }}>Anywhere · Any week</Text>
+                <Text style={{ fontFamily: 'mon-sb',color:colorTheme.TEXT }}>Where to?</Text>
+                <Text style={{ color: colorTheme.SECONDARY_TEXT, fontFamily: 'mon' }}>Anywhere · Any week</Text>
               </View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.filterBtn,,{ borderColor: colorTheme.TEXT}]}>
-            <Ionicons name="options-outline" size={24} />
+          <TouchableOpacity style={[styles.filterBtn,,{ borderColor: colorTheme.LINE_BREAK}]}>
+            <Ionicons name="options-outline" size={24} color={colorTheme.TEXT} />
           </TouchableOpacity>
         </View>
 
@@ -98,8 +88,8 @@ const ExploreScreen = ({ onCategoryChanged }: Props) => {
               style={activeIndex === index ? [styles.categoriesBtnActive,{borderBottomColor:colorTheme.TEXT}] : styles.categoriesBtn}
               onPress={() => selectCategory(index)}
             >
-              <MaterialIcons name={item.icon} size={24} color={activeIndex === index ? '#000' : 'grey'} />
-              <Text style={activeIndex === index ? styles.categoryTextActive : styles.categoryText}>
+              <MaterialIcons name={item.icon} size={24} color={activeIndex === index ? colorTheme.PRIMARY_BUTTON_HOVER : colorTheme.LINE_BREAK} />
+              <Text style={activeIndex === index ? [styles.categoryTextActive,{color:colorTheme.PRIMARY_BUTTON}] : [styles.categoryText,{color:colorTheme.LINE_BREAK}]}>
                 {item.name}
               </Text>
             </TouchableOpacity>
@@ -148,7 +138,6 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 14,
     fontFamily: 'mon-sb',
-    color: 'grey',
   },
   categoryTextActive: {
     fontSize: 14,
