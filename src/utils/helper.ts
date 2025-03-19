@@ -15,3 +15,5 @@ export const timeout = async (ms: number) => {
       return response;
     }
   };
+
+  export const TabsHeight = 108;

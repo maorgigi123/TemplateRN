@@ -26,21 +26,22 @@ export const styles = StyleSheet.create({
         paddingLeft: 10,
       },
       button: {
-        paddingVertical: 12,
-        borderRadius: 5,
-        marginBottom: 10,
+        width: "100%",
+        height: 50,
+        borderRadius: 10,
         justifyContent: "center",
         alignItems: "center",
+        marginBottom: 15,
       },
       buttonText: {
         color: "white",
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: "bold",
       },
       forgotPassword: {
         color: "#007BFF",
         textAlign: "center",
-        marginBottom: 10,
+        marginBottom: 20,
       },
       signUpLink: {
         color: "#007BFF",

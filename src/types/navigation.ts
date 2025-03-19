@@ -1,3 +1,5 @@
+import { IListing } from "./response";
+
 //Boot
 export const SPLASH = 'Splash';
 export const BOOT = 'Boot';
@@ -24,10 +26,9 @@ export type AuthParamList = {
 
 //Root
 export const BOTTOM_TABS = "BottomTabs";
-export const HOME =  "HOME"
+
 export type RootParamList = {
-  [BOTTOM_TABS]: undefined;
-  [HOME]: { screen: keyof ProfileStackParamList } | undefined;
+  [BOTTOM_TABS]: ProfileStackParamList;
   [ERROR]: undefined;
 };
 
@@ -41,5 +42,13 @@ export type ProfileStackParamList = {
   [PROFILE]: undefined;
   [MESSAGES]: undefined;
   [RENTAL]: undefined;
-  [SEARCH] : undefined;
+  [SEARCH] : { screen: keyof SearchStackParamList } | undefined;
 };
+
+export const SEARCH_SCREEN= "SEARCH_SCREEN"
+export const SEARCH_DETAILES = "SEARCH_DETAILES"
+export type SearchStackParamList = {
+  [SEARCH_SCREEN]: undefined;
+  [SEARCH_DETAILES]: {item:IListing, index:number};
+};
+

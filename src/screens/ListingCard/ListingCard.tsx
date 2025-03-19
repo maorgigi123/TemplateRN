@@ -1,62 +1,93 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   FlatList,
-  Image,
   Dimensions,
   Text,
   StyleSheet,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  TouchableOpacity,
+  Pressable,
 } from "react-native";
 import AnimatedDotsCarousel from "react-native-animated-dots-carousel";
 import { SCREEN_WIDTH } from "../../utils/details";
 import { IListing } from "../../types/response";
-import { Theme } from "../../../store/user/user.types";
-
+import { useUserLocation } from "../../hooks/useUserLocation";
+import {ILocation} from '../../../store/user/user.reducer'
+import { calculateDistance } from "../../utils/calculateDistance";
+import { IColor } from "../../components/Colors/Color";
+import { currencyCalc } from "../../utils/currencyCalc";
+import { statusCalc } from "../../utils/statusCalc";
+import FastImage from "react-native-fast-image";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ProfileStackParamList, SEARCH, SEARCH_DETAILES, SearchStackParamList } from "../../types/navigation";
+import Animated, { FadeInDown } from "react-native-reanimated";
 interface ListingCardProps {
   item: IListing;
-  themeColor: any;
+  themeColor: IColor;
   fonts: { type: { demibold: string } };
+  location : ILocation;
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({ item, themeColor, fonts }) => {
+const ListingCard: React.FC<ListingCardProps> = React.memo(({ item, themeColor, fonts, location }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [loadingImages, setLoadingImages] = useState<boolean[]>(item.images.map(() => true)); // Track loading state for images
+  const navigation = useNavigation<NativeStackNavigationProp<SearchStackParamList>>();
 
-  const handleMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const offsetX = event.nativeEvent.contentOffset.x;
-    // Calculate index using FlatList width (SCREEN_WIDTH - 40)
-    let index = Math.floor(offsetX / (SCREEN_WIDTH - 40));
-    // Clamp the index to ensure it doesn't exceed the last valid index
-    index = Math.min(index, item.images.length - 1);
-    setCurrentIndex(index);
+
+  const handleImageLoad = (index: number) => {
+    setLoadingImages((prev) => {
+      const updated = [...prev];
+      updated[index] = false;
+      return updated;
+    });
   };
-
   return (
     <View style={[styles.card, { width: SCREEN_WIDTH - 40 }]}>
       <View style={{ height: 300 }}>
         {item.images && item.images.length > 0 ? (
           <>
-          <FlatList
-                data={item.images}
-                keyExtractor={(img, idx) => idx.toString()}
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                onScroll={(event) => {
-                    const offsetX = event.nativeEvent.contentOffset.x;
-                    const index = Math.round(offsetX / (SCREEN_WIDTH - 40));
-                    setCurrentIndex(index);
-                }}
-                scrollEventThrottle={16} // Ensures smooth and frequent updates
-                renderItem={({ item: img }) => (
-                    <Image
-                    source={{ uri: img }}
-                    style={{ width: SCREEN_WIDTH - 40, height: 300 }}
-                    resizeMode="cover"
-                    />
-                )}
-                />
+        <FlatList
+              data={item.images}
+              keyExtractor={(img, idx) => idx.toString()}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={(event) => {
+                const offsetX = event.nativeEvent.contentOffset.x;
+                const index = Math.round(offsetX / (SCREEN_WIDTH - 40));
+                setCurrentIndex(index);
+              }}
+              initialNumToRender={1}
+              windowSize={5}
+              getItemLayout={(data, index) => ({
+                length: SCREEN_WIDTH - 40,
+                offset: (SCREEN_WIDTH - 40) * index,
+                index,
+              })}
+              scrollEventThrottle={16}
+              renderItem={({ item: img, index }) => (
+                <View>
+                  {loadingImages[index] && (
+                    <SkeletonPlaceholder borderRadius={10}>
+                      <View style={styles.skeleton} />
+                    </SkeletonPlaceholder>
+                  )}
+                      <Pressable onPress={() => navigation.navigate(SEARCH_DETAILES,{item:item,index:index})}>
+                        <Animated.Image
+                          sharedTransitionTag={`sharedTag-${item.id}-${index}`}
+                          source={{ uri: img }}
+                            style={[styles.image, loadingImages[index] ? { opacity: 0 } : { opacity: 1 }]}
+                            resizeMode={FastImage.resizeMode.cover}
+                            onLoad={() => handleImageLoad(index)} // Hide skeleton on load
+                          />
+                      </Pressable>
+                </View>
+              )}
+            />
 
 
             <View style={styles.dotContainer}>
@@ -96,21 +127,41 @@ const ListingCard: React.FC<ListingCardProps> = ({ item, themeColor, fonts }) =>
         )}
       </View>
       <View style={styles.overlay}>
-        <Text style={{ color: "white", fontSize: 18, fontFamily: fonts.type.demibold }}>
+        <Text style={{ color: themeColor.TEXT, fontSize: 18, fontFamily: fonts.type.demibold }}>
           {item.title}
         </Text>
-        <Text style={{ color: "white", fontSize: 14 }}>{item.location}</Text>
+        {
+        (location.latitude != null && location.longitude!=null && item.location.latitude != null && item.location.longitude != null) ? 
+        <Text style={{ color: themeColor.TEXT, fontSize: 15,fontWeight:'bold' }}>
+        {parseFloat(calculateDistance(location.latitude, location.longitude, item.location.latitude, item.location.longitude).toFixed(2)).toString()}
+        {" km"}
+        </Text>
+        :
+        <Text style={{ color: "white", fontSize: 14 }}>{item.location.city}</Text>
+        }
+       <Text style={{ color: themeColor.TEXT, fontSize: 18, fontFamily: fonts.type.demibold }}>
+        {item.price} {currencyCalc(item.currency)}
+      </Text>
+      <Text
+          style={{
+            color: statusCalc(item.status),
+            fontSize: 18,
+            fontFamily: fonts.type.demibold,
+          }}
+        >
+          {item.status}
+        </Text>
+
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   card: {
     marginBottom: 20,
     borderRadius: 10,
     overflow: "hidden",
-    backgroundColor: "white",
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 10,
@@ -124,15 +175,22 @@ const styles = StyleSheet.create({
     zIndex: 9999,
   },
   overlay: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "rgba(0,0,0,0.6)",
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
+    display:'flex',
+    alignItems:'flex-end',
+    gap:2
+  },
+  skeleton: {
+    width: SCREEN_WIDTH - 40,
+    height: 300,
+    backgroundColor: "#e0e0e0",
+  },
+  image: {
+    width: SCREEN_WIDTH - 40,
+    height: 300,
   },
 });
 

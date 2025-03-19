@@ -84,12 +84,12 @@ const RegisterScreen: React.FC = () => {
       <Text style={styles.title}>{t('register.title')}</Text>
       <Text style={styles.subtitle}>{t('register.subtitle')}</Text>
       
-      <TextInput style={styles.input} placeholder={t('register.usernamePlaceholder')} value={username} onChangeText={setUsername}   autoCapitalize="none" />
-      <TextInput style={styles.input} placeholder={t('register.emailPlaceholder')} value={email} onChangeText={setEmail} autoCapitalize="none" />
-      <TextInput style={styles.input} placeholder={t('register.passwordPlaceholder')} secureTextEntry value={password} onChangeText={setPassword} autoCapitalize="none" />
-      <TextInput style={styles.input} placeholder={t('register.confirmPasswordPlaceholder')} secureTextEntry value={confirmPassword} onChangeText={setConfirmPassword} autoCapitalize="none" />
-      <TextInput style={styles.input} placeholder={t('register.phonePlaceholder')} value={phone} onChangeText={setPhone} autoCapitalize="none" />
-      <TextInput style={styles.input} placeholder={t('register.locationPlaceholder')} value={location} onChangeText={setLocation} autoCapitalize="none" />
+      <TextInput style={styles.input} placeholder={t('register.usernamePlaceholder')} value={username} onChangeText={setUsername}   autoCapitalize="none" placeholderTextColor={colorTheme.TEXT}/>
+      <TextInput style={styles.input} placeholder={t('register.emailPlaceholder')} value={email} onChangeText={setEmail} autoCapitalize="none" placeholderTextColor={colorTheme.TEXT} />
+      <TextInput style={styles.input} placeholder={t('register.passwordPlaceholder')} secureTextEntry value={password} onChangeText={setPassword} autoCapitalize="none" placeholderTextColor={colorTheme.TEXT}/>
+      <TextInput style={styles.input} placeholder={t('register.confirmPasswordPlaceholder')} secureTextEntry value={confirmPassword} onChangeText={setConfirmPassword} autoCapitalize="none" placeholderTextColor={colorTheme.TEXT}/>
+      <TextInput style={styles.input} placeholder={t('register.phonePlaceholder')} value={phone} onChangeText={setPhone} autoCapitalize="none" placeholderTextColor={colorTheme.TEXT} />
+      <TextInput style={styles.input} placeholder={t('register.locationPlaceholder')} value={location} onChangeText={setLocation} autoCapitalize="none" placeholderTextColor={colorTheme.TEXT}/>
       
       {errorMessage && <Text style={styles.errorText}>* {errorMessage}</Text>}
       

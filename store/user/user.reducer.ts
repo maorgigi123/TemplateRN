@@ -1,10 +1,19 @@
 import { theme, Theme, USER_ACTION_TYPES, UserState } from './user.types';
 
-// Define the initial state and type it as `UserState`
+export type ILocation = {
+  longitude: number | null;
+  latitude: number | null;
+};
+
 const INITIAL_STATE: UserState = {
   isDarkMode: theme.light as Theme,
   isLoggedIn: false,
+  location: {
+    longitude: null,
+    latitude: null
+  }
 };
+
 
 // Define the reducer with explicit types for state and action
 export const userReducer = (
@@ -21,6 +30,11 @@ export const userReducer = (
       return {
         ...state,
         isLoggedIn: action.payload,
+      };
+    case USER_ACTION_TYPES.SET_LOCATION:
+      return {
+        ...state,
+        location: action.payload,
       };
     default:
       return state;

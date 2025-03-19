@@ -1,12 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTranslation } from "react-i18next";
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 import HapticFeedback from "react-native-haptic-feedback";
 import Ionicons from 'react-native-vector-icons/Ionicons'; // Import from react-native-vector-icons
 
 import { MessagesScreen, ProfileScreen, RentalScreen, SearchScreen } from "../screens";
-import { TABS_YELLOW } from "../styles/colors";
+import { TABS_YELLOW } from "../styles/universalColors";
 import { PROFILE, MESSAGES, SEARCH, RENTAL } from "../types/navigation";
+import ListingStack from "../screens/ListingStack";
 
 const handleTabPress = () => {
   HapticFeedback.trigger("selection", {
@@ -19,9 +20,8 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabsNavigator = () => {
   const { t } = useTranslation();
-
   return (
-    <Tab.Navigator
+ <Tab.Navigator
       initialRouteName={SEARCH}
       screenOptions={({ route }) => ({
         headerShown: false,
@@ -57,7 +57,9 @@ const BottomTabsNavigator = () => {
 
         tabBarButton: (props) => (
           <TouchableOpacity
-            {...props}
+            {...Object.fromEntries(
+              Object.entries(props).filter(([_, v]) => v !== null)
+            )}            
             disabled={props.disabled ?? false}  // Ensure it's always boolean
             onPress={(e) => {
               handleTabPress();
@@ -77,12 +79,13 @@ const BottomTabsNavigator = () => {
         },
       })}
     >
-      <Tab.Screen name={PROFILE} component={ProfileScreen} />
+      <Tab.Screen name={PROFILE} component={ProfileScreen}/> 
       <Tab.Screen name={MESSAGES} component={MessagesScreen} />
       <Tab.Screen name={RENTAL} component={RentalScreen} />
-      <Tab.Screen name={SEARCH} component={SearchScreen} />
+      <Tab.Screen name={SEARCH} component={ListingStack} />
 
     </Tab.Navigator>
+  
   );
 };
 

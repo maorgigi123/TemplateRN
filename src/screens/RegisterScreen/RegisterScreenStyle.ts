@@ -45,6 +45,7 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   loginLink: {
+    marginTop:10,
     fontSize: 16,
     color: "#007bff", // Link color
     textDecorationLine: "underline",

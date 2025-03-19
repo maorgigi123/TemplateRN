@@ -1,5 +1,21 @@
 import { Theme, theme } from "../../../store/user/user.types";
 
+
+export interface IColor {
+  BACKGROUND: string;
+  TEXT: string;
+  WHITE: string;
+  BLACK: string;
+  LINE_BREAK: string;
+  PRIMARY_BUTTON: string;
+  GrayBackground: string;
+  PRIMARY_BUTTON_HOVER: string;
+  PRIMARY_COLOR: string;
+  SECONDARY_BACKGROUND: string;
+  SECONDARY_TEXT: string;
+  ACCENT_COLOR: string;
+}
+
 export const Color ={
   WHITE_BACKGROUND:'#F0F0F0',
   BLACK_BACKGROUND: '#1F1F1F',

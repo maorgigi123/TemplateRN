@@ -3,7 +3,7 @@ import {
   BUTTON_BLACK,
   DISABLED_GREY,
   DISABLED_GREY_TEXT,
-} from "../../styles/colors";
+} from "../../styles/universalColors";
 import fonts from "../../styles/fonts";
 
 export const styles = StyleSheet.create({

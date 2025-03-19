@@ -13,6 +13,7 @@ import { useTheme } from "../../hooks/useTheme.ts";
 import { useDispatch } from "react-redux";
 import { SetLogin } from "../../../store/user/user.action.ts";
 import { IResponse } from "../../api/models/ResponseModels.ts";
+import { useUserLocation } from "../../hooks/useUserLocation.ts";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState(""); // User email state
@@ -23,6 +24,8 @@ const LoginScreen = () => {
   const colorTheme = useTheme();
   const { t } = useTranslation();
   const dispath = useDispatch()
+
+
   // API Call - useMutation for login request
   const loginMutation = useMutation({
     mutationKey: [Login_SERIVCE_MUTATION_KEY],
@@ -34,7 +37,7 @@ const LoginScreen = () => {
     },
     onError: (error) => {
       if (isAxiosError<IResponse<any>>(error)) {
-        console.log(error.response?.data?.messageDesc)
+        console.log(error)
         setErrorText(error.response?.data?.messageDesc || "")
         // navigation.navigate(ERROR); // Navigate to error screen if needed
       }
@@ -62,6 +65,7 @@ const LoginScreen = () => {
       <TextInput
         style={styles.input}
         placeholder={t('login.emailPlaceholder')}
+        placeholderTextColor={colorTheme.TEXT}
         value={email}
         onChangeText={setEmail}
       />
@@ -70,6 +74,7 @@ const LoginScreen = () => {
       <TextInput
         style={styles.input}
         placeholder={t('login.passwordPlaceholder')}
+        placeholderTextColor={colorTheme.TEXT}
         secureTextEntry
         value={password}
         onChangeText={setPassword}

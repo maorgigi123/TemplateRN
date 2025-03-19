@@ -46,7 +46,6 @@ import { styles } from "./PredefinedMenuScreenStyle";
 
 const SERVICES = new Map<string, IResponse<any>[]>([
   ["GetSiteContentService", GetSiteContentServiceResponse],
-  ["RegisterService",RegisterServiceResponse],
   ["LoginService",loginServiceResponse],
   ["getListingsService", listingServiceResponse],
   ["LogOutService",LogOutServiceResponse]
