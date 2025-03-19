@@ -82,7 +82,7 @@ const BottomTabsNavigator = () => {
       <Tab.Screen name={PROFILE} component={ProfileScreen}/> 
       <Tab.Screen name={MESSAGES} component={MessagesScreen} />
       <Tab.Screen name={RENTAL} component={RentalScreen} />
-      <Tab.Screen name={SEARCH} component={ListingStack} />
+      <Tab.Screen name={SEARCH} component={ListingStack}/>
 
     </Tab.Navigator>
   

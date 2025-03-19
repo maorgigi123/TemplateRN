@@ -10,8 +10,8 @@ const ListingStack: React.FC = () => {
     <Stack.Navigator>
       <Stack.Screen name={SEARCH_SCREEN} component={SearchScreen} options={{ headerShown : false ,animation: 'slide_from_right'}} />
       <Stack.Screen name={SEARCH_DETAILES} component={ListingDetails}   options={{
-          headerShown: false,
           animation: 'slide_from_right',
+          gestureEnabled:false
         }} />
     </Stack.Navigator>
   );

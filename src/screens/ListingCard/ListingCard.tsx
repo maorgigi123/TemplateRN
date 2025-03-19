@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   FlatList,
-  Dimensions,
   Text,
   StyleSheet,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-  TouchableOpacity,
   Pressable,
 } from "react-native";
 import AnimatedDotsCarousel from "react-native-animated-dots-carousel";
 import { SCREEN_WIDTH } from "../../utils/details";
 import { IListing } from "../../types/response";
-import { useUserLocation } from "../../hooks/useUserLocation";
 import {ILocation} from '../../../store/user/user.reducer'
 import { calculateDistance } from "../../utils/calculateDistance";
 import { IColor } from "../../components/Colors/Color";
@@ -23,8 +18,8 @@ import FastImage from "react-native-fast-image";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ProfileStackParamList, SEARCH, SEARCH_DETAILES, SearchStackParamList } from "../../types/navigation";
-import Animated, { FadeInDown } from "react-native-reanimated";
+import {SEARCH_DETAILES, SearchStackParamList } from "../../types/navigation";
+import Animated from "react-native-reanimated";
 interface ListingCardProps {
   item: IListing;
   themeColor: IColor;
@@ -36,7 +31,6 @@ const ListingCard: React.FC<ListingCardProps> = React.memo(({ item, themeColor, 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [loadingImages, setLoadingImages] = useState<boolean[]>(item.images.map(() => true)); // Track loading state for images
   const navigation = useNavigation<NativeStackNavigationProp<SearchStackParamList>>();
-
 
   const handleImageLoad = (index: number) => {
     setLoadingImages((prev) => {
@@ -52,7 +46,7 @@ const ListingCard: React.FC<ListingCardProps> = React.memo(({ item, themeColor, 
           <>
         <FlatList
               data={item.images}
-              keyExtractor={(img, idx) => idx.toString()}
+              keyExtractor={(_, idx) => idx.toString()}
               horizontal
               pagingEnabled
               showsHorizontalScrollIndicator={false}
@@ -78,7 +72,7 @@ const ListingCard: React.FC<ListingCardProps> = React.memo(({ item, themeColor, 
                   )}
                       <Pressable onPress={() => navigation.navigate(SEARCH_DETAILES,{item:item,index:index})}>
                         <Animated.Image
-                          sharedTransitionTag={`sharedTag-${item.id}-${index}`}
+                          sharedTransitionTag={item.id}
                           source={{ uri: img }}
                             style={[styles.image, loadingImages[index] ? { opacity: 0 } : { opacity: 1 }]}
                             resizeMode={FastImage.resizeMode.cover}
