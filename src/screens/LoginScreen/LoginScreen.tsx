@@ -5,7 +5,7 @@ import { isAxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, ActivityIndicator } from "react-native";
 import { LoginService } from "../../api/services/authServices"
-import { HOME, ERROR, AuthParamList, REGISTER } from "../../types/navigation"; // Navigation screens
+import { AuthParamList, REGISTER } from "../../types/navigation"; // Navigation screens
 import { styles } from "./LoginScreenStyle.ts"; // Import styles
 import { Login_SERIVCE_MUTATION_KEY } from "../../constants/keys.ts";
 import { useTranslation } from "react-i18next";

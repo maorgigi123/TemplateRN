@@ -12,19 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../hooks/useTheme";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-
-const categories = [
-  { name: 'Trending', icon: 'local-fire-department' },
-  { name: 'Photography Equipment', icon: 'camera' },
-  { name: 'Sports Equipment', icon: 'sports-handball' },
-  { name: 'Musical Instruments', icon: 'music-note' },
-  { name: 'Party Supplies', icon: 'celebration' },
-  { name: 'Boats & Water Sports', icon: 'directions-boat' },
-  { name: 'Tools & Machines', icon: 'build' },
-  { name: 'Winter Sports Gear', icon: 'snowboarding' },
-  { name: 'Camping & Hiking', icon: 'hiking' },
-  { name: 'Electronics', icon: 'devices' },
-];
+import { useTranslation } from "react-i18next";
 
 
 interface Props {
@@ -38,6 +26,10 @@ const ExploreScreen = ({ onCategoryChanged }: Props) => {
   const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const colorTheme = useTheme()
+  const { t } = useTranslation(); // Initialize translation hook
+
+  const categories = Object.values(t("categories", { returnObjects: true }));
+
   const selectCategory = (index: number) => {
     setActiveIndex(index);
     itemsRef.current[index]?.measure((x: number, y: number, width: number, height: number) => {

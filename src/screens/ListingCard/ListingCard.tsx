@@ -88,27 +88,27 @@ const ListingCard: React.FC<ListingCardProps> = React.memo(({ item, themeColor, 
             <AnimatedDotsCarousel
                     length={item.images.length}
                     currentIndex={currentIndex}
-                    maxIndicators={4}
+                    maxIndicators={1}
                     interpolateOpacityAndColor={true}
                     activeIndicatorConfig={{
-                        color: themeColor.PRIMARY_BUTTON,
+                        color: themeColor.WHITE,
                         margin: 3,
-                        opacity: 1,
-                        size: 8,
+                        opacity: .8,
+                        size: 7,
                     }}
                     inactiveIndicatorConfig={{
                         color: "white",
                         margin: 3,
                         opacity: 0.5,
-                        size: 8,
+                        size: 6,
                     }}
                     decreasingDots={[
                         {
-                        config: { color: "white", margin: 3, opacity: 0.5, size: 6 },
+                        config: { color: "white", margin: 3, opacity: 0.5, size: 5 },
                         quantity: 1,
                         },
                         {
-                        config: { color: "white", margin: 3, opacity: 0.5, size: 4 },
+                        config: { color: "white", margin: 3, opacity: 0.5, size: 3 },
                         quantity: 1,
                         },
                     ]}

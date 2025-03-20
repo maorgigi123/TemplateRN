@@ -17,6 +17,18 @@
               "theme" : "צבע תבנית"
             }
           },
+          "categories": {
+            "trend": { "name": "טרנדים", "icon": "local-fire-department" },
+            "camera": { "name": "ציוד צילום", "icon": "camera" },
+            "sports": { "name": "ציוד ספורט", "icon": "sports-handball" },
+            "music": { "name": "כלי נגינה", "icon": "music-note" },
+            "celebration": { "name": "אביזרים למסיבות", "icon": "celebration" },
+            "boat": { "name": "סירות וספורט ימי", "icon": "directions-boat" },
+            "build": { "name": "כלים ומכונות", "icon": "build" },
+            "snowboard": { "name": "ציוד ספורט חורף", "icon": "snowboarding" },
+            "hiking": { "name": "קמפינג וטיולים", "icon": "hiking" },
+            "electronics": { "name": "אלקטרוניקה", "icon": "devices" }
+          },        
           "HomePage" : {
             "title" : "כאן נרשמים לאפליקציה פאקר"
           } ,
@@ -55,11 +67,24 @@
            "SEARCH" : "חיפוש"
           },
           "profile": {
-            "title": "Profile",
-            "username": "John Doe",
-            "bio": "Traveler | Food Lover | Photographer",
-            "editProfile": "Edit Profile",
-            "logout": "Logout"
+            "username": "מאור גיגי",
+            "bio": "מפתח נלהב ואוהב טכנולוגיה.",
+            "description": "ברוכים הבאים לפרופיל שלי! אני אוהב לבנות אפליקציות ולחקור טכנולוגיות חדשות. מוזמנים ליצור קשר!",
+            "editProfile": "עריכת פרופיל",
+            "logout": "התנתקות",
+            "changeTheme": "החלפת נושא",
+            "stat1": {
+              "title": "עוקבים",
+              "value": "120K"
+            },
+            "stat2": {
+              "title": "נעקבים",
+              "value": "500"
+            },
+            "stat3": {
+              "title": "פוסטים",
+              "value": "240"
+            }
           }
          }
     }
